@@ -12,69 +12,69 @@
 #include <cstring>
 #include <math.h>
 using namespace std;
-int MINTERM_LENGTH;	//bit ¼ö
+int MINTERM_LENGTH;	//bit ìˆ˜
 
 class inf {
 public:
-	vector<pair<string, string> > sortinfo(vector<pair<string, string> > min); //mintermµé ¿À¸§Â÷¼øÀ¸·Î Á¤·ÄÇÏ´Â ÇÔ¼ö
+	vector<pair<string, string> > sortinfo(vector<pair<string, string> > min); //mintermë“¤ ì˜¤ë¦„ì°¨ìˆœìœ¼ë¡œ ì •ë ¬í•˜ëŠ” í•¨ìˆ˜
 };
 
-vector<pair<string, string> > inf::sortinfo(vector < pair<string, string> > min) //mintermµé ¿À¸§Â÷¼øÀ¸·Î Á¤·ÄÇÏ´Â ÇÔ¼ö
+vector<pair<string, string> > inf::sortinfo(vector < pair<string, string> > min) //mintermë“¤ ì˜¤ë¦„ì°¨ìˆœìœ¼ë¡œ ì •ë ¬í•˜ëŠ” í•¨ìˆ˜
 {
 	int i, j, x, y;
 	for (i = 0; i < min.size() - 1; i++)
 	{
 		for (j = 0; j < min.size() - 1 - i; j++)
 		{
-			x = count(min[j].second.begin(), min[j].second.end(), '1'); //1ÀÇ °³¼ö ¼¼±â
-			y = count(min[j + 1].second.begin(), min[j + 1].second.end(), '1'); //1ÀÇ °³¼ö ¼¼±â
-			if (x > y) //¾Õ¿¡ ÀÖ´Â °ÍÀÌ µÚ¿¡ ÀÖ´Â °Íº¸´Ù 1À» ´õ ¸¹ÀÌ °¡Áö°í ÀÖ´Ù¸é
-				swap(min[j], min[j + 1]); //À§Ä¡ ¹Ù²Ù±â
+			x = count(min[j].second.begin(), min[j].second.end(), '1'); //1ì˜ ê°œìˆ˜ ì„¸ê¸°
+			y = count(min[j + 1].second.begin(), min[j + 1].second.end(), '1'); //1ì˜ ê°œìˆ˜ ì„¸ê¸°
+			if (x > y) //ì•ì— ìˆëŠ” ê²ƒì´ ë’¤ì— ìˆëŠ” ê²ƒë³´ë‹¤ 1ì„ ë” ë§ì´ ê°€ì§€ê³  ìˆë‹¤ë©´
+				swap(min[j], min[j + 1]); //ìœ„ì¹˜ ë°”ê¾¸ê¸°
 		}
 	}
-	return min; //Á¤·ÄÇÑ ÇÔ¼ö¸¦ ¸®ÅÏ
+	return min; //ì •ë ¬í•œ í•¨ìˆ˜ë¥¼ ë¦¬í„´
 }
 
 
-pair<vector<string>, bool> reduce(vector<string>, vector<string>*); 
+pair<vector<string>, bool> reduce(vector<string>, vector<string>*);
 
 
 int main() {
 
-	vector<pair<string, string>> minterms; //Àü´Ş¹ŞÀº vectorÀÇ minterm. string1: dm, string2: minterm³»¿ë
-	pair<vector<string>, bool> reduced_minterms; //ÇöÀç ´Ü°è¿¡¼­, mintermÀ» doncare ¹­¾î¹ö¸° Ç×µé¸¸ Æ÷ÇÔÇÑ´Ù.
-	//1. starred Ç×Àº Æ÷ÇÔ ¾ÈÇÑ´Ù. °¢ ´Ü°è¿¡¼­ before_reducing¿¡ ³²¾Æ, ±×Ç×µéÀº PI¿¡ ÀÚµ¿ Ãß°¡ÇÒ °ÍÀÌ´Ù.
-	//2. ¸Å reduce()ÇÔ¼ö È£Ãâ ¶§¸¶´Ù ±âÁ¸°ªÀ» ¹ö¸®°í 1´Ü°è ´õ reduce µÈ Ç×µéÀ» ¹Ş°Ô µÈ´Ù.
-	vector<string> PrimeImplicants; //ÃÖÁ¾ÀûÀ¸·Î, PIµé¸¸ ¸ğÀÌ°ÔµÈ´Ù.
-	//1. PI´Â reduce()ÇÔ¼ö¿¡¼­ ¸Å¹ø starred µÈ Ç×µéÀ» °ªÀ¸·Î Ãß°¡µÈ´Ù.
-	//2. ¸¶Áö¸·¿¡ reduced_mintermsÀÇ boolÀÌ false°¡ µÇ¸é reduced_minterms¿¡ ³²¾ÆÀÖ´Â Ç×µéÀÌ °ªÀ¸·Î Ãß°¡µÈ´Ù.
+	vector<pair<string, string>> minterms; //ì „ë‹¬ë°›ì€ vectorì˜ minterm. string1: dm, string2: mintermë‚´ìš©
+	pair<vector<string>, bool> reduced_minterms; //í˜„ì¬ ë‹¨ê³„ì—ì„œ, mintermì„ doncare ë¬¶ì–´ë²„ë¦° í•­ë“¤ë§Œ í¬í•¨í•œë‹¤.
+	//1. starred í•­ì€ í¬í•¨ ì•ˆí•œë‹¤. ê° ë‹¨ê³„ì—ì„œ before_reducingì— ë‚¨ì•„, ê·¸í•­ë“¤ì€ PIì— ìë™ ì¶”ê°€í•  ê²ƒì´ë‹¤.
+	//2. ë§¤ reduce()í•¨ìˆ˜ í˜¸ì¶œ ë•Œë§ˆë‹¤ ê¸°ì¡´ê°’ì„ ë²„ë¦¬ê³  1ë‹¨ê³„ ë” reduce ëœ í•­ë“¤ì„ ë°›ê²Œ ëœë‹¤.
+	vector<string> PrimeImplicants; //ìµœì¢…ì ìœ¼ë¡œ, PIë“¤ë§Œ ëª¨ì´ê²Œëœë‹¤.
+	//1. PIëŠ” reduce()í•¨ìˆ˜ì—ì„œ ë§¤ë²ˆ starred ëœ í•­ë“¤ì„ ê°’ìœ¼ë¡œ ì¶”ê°€ëœë‹¤.
+	//2. ë§ˆì§€ë§‰ì— reduced_mintermsì˜ boolì´ falseê°€ ë˜ë©´ reduced_mintermsì— ë‚¨ì•„ìˆëŠ” í•­ë“¤ì´ ê°’ìœ¼ë¡œ ì¶”ê°€ëœë‹¤.
 
-	//step 1)ÅØ½ºÆ® ÆÄÀÏÀ» ÅëÇØ °£¼ÒÈ­ÇÒ ³í¸® ½ÄÀ» ÀÔ·Â¹Ş´Â ´Ü°è
+	//step 1)í…ìŠ¤íŠ¸ íŒŒì¼ì„ í†µí•´ ê°„ì†Œí™”í•  ë…¼ë¦¬ ì‹ì„ ì…ë ¥ë°›ëŠ” ë‹¨ê³„
 
-	char filename[30] = "input_minterm.txt"; //input ÆÄÀÏ ÀÌ¸§
-	string s, ch, t; //s: Ã³À½ ¹®ÀÚ¿­ ¹Ş¾Æ ÀÓ½Ã·Î ÀúÀå, ch: minterm or dontcare, t: 2Áø¼ö
+	char filename[30] = "input_minterm.txt"; //input íŒŒì¼ ì´ë¦„
+	string s, ch, t; //s: ì²˜ìŒ ë¬¸ìì—´ ë°›ì•„ ì„ì‹œë¡œ ì €ì¥, ch: minterm or dontcare, t: 2ì§„ìˆ˜
 	int i;
 	inf x;
 
-	ifstream file(filename); //ÆÄÀÏ ÀĞ±â Àü¿ëÀ¸·Î ¿­±â
-	file >> MINTERM_LENGTH; //inputÆÄÀÏ¿¡¼­ input bit lengthÀĞ±â
+	ifstream file(filename); //íŒŒì¼ ì½ê¸° ì „ìš©ìœ¼ë¡œ ì—´ê¸°
+	file >> MINTERM_LENGTH; //inputíŒŒì¼ì—ì„œ input bit lengthì½ê¸°
 
-	getline(file, s); //ÆÄÀÏ¿¡¼­ ÇÑ ÁÙ¾¿ ÀĞ±â
-	while (!file.eof()) //ÆÄÀÏÀÇ ³¡¿¡ µµ´ŞÇÏ±â Àü±îÁö ¹İº¹
+	getline(file, s); //íŒŒì¼ì—ì„œ í•œ ì¤„ì”© ì½ê¸°
+	while (!file.eof()) //íŒŒì¼ì˜ ëì— ë„ë‹¬í•˜ê¸° ì „ê¹Œì§€ ë°˜ë³µ
 	{
-		getline(file, s); //ÆÄÀÏ¿¡¼­ ÇÑ ÁÙ¾¿ ÀĞ±â
-		istringstream f(s); //¹®ÀÚ¿­ ÆÄ½Ì ÇÔ¼ö 
-		f >> ch >> t; //dÀÎÁö mÀÎÁö¸¦ ch¿¡ ÀúÀå, minterms¸¦ t¿¡ ÀúÀå
+		getline(file, s); //íŒŒì¼ì—ì„œ í•œ ì¤„ì”© ì½ê¸°
+		istringstream f(s); //ë¬¸ìì—´ íŒŒì‹± í•¨ìˆ˜ 
+		f >> ch >> t; //dì¸ì§€ mì¸ì§€ë¥¼ chì— ì €ì¥, mintermsë¥¼ tì— ì €ì¥
 		minterms.push_back(make_pair(ch, t));
 	}
 	file.close();
-	minterms = x.sortinfo(minterms); //ÀÔ·Â¹ŞÀº mintermµé Á¤·ÄÇÏ´Â ÇÔ¼ö È£ÃâÇÏ°í,Á¤·ÄµÈ °á°ú¸¦ ´Ù½Ã vector¿¡ ÀúÀå
+	minterms = x.sortinfo(minterms); //ì…ë ¥ë°›ì€ mintermë“¤ ì •ë ¬í•˜ëŠ” í•¨ìˆ˜ í˜¸ì¶œí•˜ê³ ,ì •ë ¬ëœ ê²°ê³¼ë¥¼ ë‹¤ì‹œ vectorì— ì €ì¥
 
-									 //dmµ¥ÀÌÅÍ Á¦°ÅÇØ mintermÀ» reduced_minterm¿¡ load
+	//dmë°ì´í„° ì œê±°í•´ mintermì„ reduced_mintermì— load
 	for (int i = 0; i < minterms.size(); i++)
 		reduced_minterms.first.push_back(minterms.at(i).second);
 
-	//step 2) ÁÖ¾îÁø ³í¸® ½ÄÀÇ ÈÄº¸ Ç×(Prime Implicants)¸¦ ±¸ÇÏ´Â ´Ü°è
+	//step 2) ì£¼ì–´ì§„ ë…¼ë¦¬ ì‹ì˜ í›„ë³´ í•­(Prime Implicants)ë¥¼ êµ¬í•˜ëŠ” ë‹¨ê³„
 	do {
 
 		reduced_minterms = reduce(reduced_minterms.first, &PrimeImplicants);
@@ -84,122 +84,122 @@ int main() {
 
 	pair<vector<string>, bool>().swap(reduced_minterms); //deAlloc
 
-	//step 3) ÈÄº¸ Ç×µéÀ» ÀÌ¿ëÇÏ¿© ÇÊ¼ö Ç×(Essential Prime Implicant)¸¦ ±¸ÇÏ´Â ´Ü°è
-	int PIsize = PrimeImplicants.size(); 
+	//step 3) í›„ë³´ í•­ë“¤ì„ ì´ìš©í•˜ì—¬ í•„ìˆ˜ í•­(Essential Prime Implicant)ë¥¼ êµ¬í•˜ëŠ” ë‹¨ê³„
+	int PIsize = PrimeImplicants.size();
 	int minsize = minterms.size();
 
-	//minterm Ç× »èÁ¦ ½Ã ¾²´Â º¯¼ö
+	//minterm í•­ ì‚­ì œ ì‹œ ì“°ëŠ” ë³€ìˆ˜
 	vector<pair<string, string>>::iterator minterm_it;					//minterm iterator
 
-	//pi<->mins Ç¥¸¦ Á¤ÀÇÇÏ´Â µ¥ÀÌÅÍ º¯¼ö
-	vector<vector<int>> pi_to_mins_idx;									//i¹øÂ°¿ä¼Ò´Â PI¸¦ ÀÇ¹Ì, vector<int>´Â coveringÇÏ´Â minterms index¸¦ ÀúÀå
-	vector<vector<int>> min_to_pis_idx;									//i¹øÂ°¿ä¼Ò´Â mintermÀ» ÀÇ¹Ì, vector<int>´Â covered°¡´ÉÇÑ PIs index¸¦ ÀúÀå
+	//pi<->mins í‘œë¥¼ ì •ì˜í•˜ëŠ” ë°ì´í„° ë³€ìˆ˜
+	vector<vector<int>> pi_to_mins_idx;									//ië²ˆì§¸ìš”ì†ŒëŠ” PIë¥¼ ì˜ë¯¸, vector<int>ëŠ” coveringí•˜ëŠ” minterms indexë¥¼ ì €ì¥
+	vector<vector<int>> min_to_pis_idx;									//ië²ˆì§¸ìš”ì†ŒëŠ” mintermì„ ì˜ë¯¸, vector<int>ëŠ” coveredê°€ëŠ¥í•œ PIs indexë¥¼ ì €ì¥
 	vector<int>minsofpi;
 	vector<int>pisofmin;
 
-	//ÀÌÂ÷¿øº¤ÅÍ ±âº» ´ë±â½ÃÄÑµÒ
+	//ì´ì°¨ì›ë²¡í„° ê¸°ë³¸ ëŒ€ê¸°ì‹œì¼œë‘ 
 	for (int i = 0; i < PIsize; i++)
 		pi_to_mins_idx.push_back(minsofpi);
 	for (int i = 0; i < minsize; i++)
 		min_to_pis_idx.push_back(pisofmin);
 
-	vector<int>().swap(minsofpi); //minsofpiÇÒ´çÇØÁ¦
-	vector<int>().swap(pisofmin); //pisofminÇÒ´çÇØÁ¦
+	vector<int>().swap(minsofpi); //minsofpií• ë‹¹í•´ì œ
+	vector<int>().swap(pisofmin); //pisofminí• ë‹¹í•´ì œ
 
-	//coverÇÒ ³²Àº minterm(left minterm)°ú ¸¶Áö¸·¿¡ ÇÊ¿äÇÑ PI
-	vector<int>	left_minterm;										//coverÇØ¾ßÇÏ´Â, ³²Àº mintermÀÇ indexº¤ÅÍ
-	vector<int> needpi;												//ÃÖÁ¾ÀûÀ¸·Î ÇÊ¿äÇÑ PIµé ÀüºÎÀÇ indexº¤ÅÍ
+	//coverí•  ë‚¨ì€ minterm(left minterm)ê³¼ ë§ˆì§€ë§‰ì— í•„ìš”í•œ PI
+	vector<int>	left_minterm;										//coverí•´ì•¼í•˜ëŠ”, ë‚¨ì€ mintermì˜ indexë²¡í„°
+	vector<int> needpi;												//ìµœì¢…ì ìœ¼ë¡œ í•„ìš”í•œ PIë“¤ ì „ë¶€ì˜ indexë²¡í„°
 	vector<int>::iterator l_minterm_it;								//left minterm iterator
 
 	vector<int> left_pi;
 	vector<int>::iterator l_pi_it;
 
-	vector<int> coveringpis;											//Áö±İ ÀÖ´Â left mintermÀ» Ä¿¹ö°¡´ÉÇÑ PIµé ÀüºÎ
+	vector<int> coveringpis;											//ì§€ê¸ˆ ìˆëŠ” left mintermì„ ì»¤ë²„ê°€ëŠ¥í•œ PIë“¤ ì „ë¶€
 
-	int max_covering_PI; // ±×Áß¿¡¼­ ´Ü ÇÏ³ªÀÇ »Ì¾Æ³»±â·Î ÇÑ PI		
-	int max_coverings;													//PI°¡ Ä¿¹ö¸µÇÒ ¼ö ÀÖ´Â °¡Àå ¸¹Àº left minterm°³¼ö
+	int max_covering_PI; // ê·¸ì¤‘ì—ì„œ ë‹¨ í•˜ë‚˜ì˜ ë½‘ì•„ë‚´ê¸°ë¡œ í•œ PI		
+	int max_coverings;													//PIê°€ ì»¤ë²„ë§í•  ìˆ˜ ìˆëŠ” ê°€ì¥ ë§ì€ left mintermê°œìˆ˜
 
 
 	minterm_it = minterms.begin();
 
-	//doncare Áö¿ì±â
+	//doncare ì§€ìš°ê¸°
 	while (minterm_it != minterms.end()) {
-		if (minterm_it->first == "d")   // minterm_it¿¡ ÇØ´çÇÏ´Â minterm ¿ä¼Ò str1 ÀÌ "d"ÀÏ °æ¿ì
-			minterm_it = minterms.erase(minterm_it);								// ÇØ´ç doncare ¿ä¼Ò¸¦ Áö¿ö¹ö¸®°í ±× ÀÚ¸®¿¡ minterm_it¸¦ ¹°·Á¹ö¸°´Ù	
+		if (minterm_it->first == "d")   // minterm_itì— í•´ë‹¹í•˜ëŠ” minterm ìš”ì†Œ str1 ì´ "d"ì¼ ê²½ìš°
+			minterm_it = minterms.erase(minterm_it);								// í•´ë‹¹ doncare ìš”ì†Œë¥¼ ì§€ì›Œë²„ë¦¬ê³  ê·¸ ìë¦¬ì— minterm_itë¥¼ ë¬¼ë ¤ë²„ë¦°ë‹¤	
 		//
 		else
 			minterm_it++;
 	}
-	//PI -> minterm s, minterm -> PI s ÀÇ index ´ëÀÀ °ü°è¸¦ indexº¤ÅÍÈ­ÇÏ´Â´Ü°è	
+	//PI -> minterm s, minterm -> PI s ì˜ index ëŒ€ì‘ ê´€ê³„ë¥¼ indexë²¡í„°í™”í•˜ëŠ”ë‹¨ê³„	
 
-	minsize = minterms.size(); //minterm doncare »èÁ¦ ÈÄ Å©±â º¯°æ	
+	minsize = minterms.size(); //minterm doncare ì‚­ì œ í›„ í¬ê¸° ë³€ê²½	
 
-	//cover °ü°è ºÎ¿© - »èÁ¦ÇÏ´Â °Ô ¾øÀ¸¸é iterator ¾È¾²°í for¹® »ç¿ëÇØµµ µÊ	//'-'ÀÌ ¾Æ´Ñ literalÀ» ÇÏ³ª¾¿ ºñ±³ÇÏ¸ç PI°¡ mintermÀ» cover ÇÏ¸é Ã¼Å©
-	for (int i = 0; i < PIsize; i++)										//for¹® ¹İº¹: °¢ PI¸¶´Ù, i counter
+	//cover ê´€ê³„ ë¶€ì—¬ - ì‚­ì œí•˜ëŠ” ê²Œ ì—†ìœ¼ë©´ iterator ì•ˆì“°ê³  forë¬¸ ì‚¬ìš©í•´ë„ ë¨	//'-'ì´ ì•„ë‹Œ literalì„ í•˜ë‚˜ì”© ë¹„êµí•˜ë©° PIê°€ mintermì„ cover í•˜ë©´ ì²´í¬
+	for (int i = 0; i < PIsize; i++)										//forë¬¸ ë°˜ë³µ: ê° PIë§ˆë‹¤, i counter
 	{
 		for (int j = 0; j < minsize; j++)
-		{											//for¹® ¹İº¹: °¢ minterm¸¶´Ù, j counter
-			bool covers = true;											//PI°¡ mintermÀ» Ä¿¹öÇÏ´ÂÁö¸¦ Ã¼Å©ÇÏ´Â º¯¼ö
-		//PI¿Í minterm cover¸¦ ¸ğµç ½Ö¿¡ ´ëÇØ Á¶»ç
-			for (int k = 0; k < MINTERM_LENGTH; k++) {							//literal¸¶´Ù Ã¼Å© //for¹® ¹İº¹: °¢ literal¸¶´Ù, k counter
-				if (PrimeImplicants.at(i)[k] != '-') {				// i¹øÂ° PIÀÇ stringÀÇ k¹øÂ° literalÀÌ '-'¾Æ´Ï¸é 
-					if (PrimeImplicants.at(i)[k] != minterms.at(j).second[k]) {		 //¸¸¾à¿¡ literalÀÌ ÇÏ³ª¶óµµ ´Ù¸£¸é cover¸¦ false·Î ³»¸®°í ÀÌ ½Ö¿¡ ´ëÇØ¼­ ºñ±³ break
+		{											//forë¬¸ ë°˜ë³µ: ê° mintermë§ˆë‹¤, j counter
+			bool covers = true;											//PIê°€ mintermì„ ì»¤ë²„í•˜ëŠ”ì§€ë¥¼ ì²´í¬í•˜ëŠ” ë³€ìˆ˜
+			//PIì™€ minterm coverë¥¼ ëª¨ë“  ìŒì— ëŒ€í•´ ì¡°ì‚¬
+			for (int k = 0; k < MINTERM_LENGTH; k++) {							//literalë§ˆë‹¤ ì²´í¬ //forë¬¸ ë°˜ë³µ: ê° literalë§ˆë‹¤, k counter
+				if (PrimeImplicants.at(i)[k] != '-') {				// ië²ˆì§¸ PIì˜ stringì˜ kë²ˆì§¸ literalì´ '-'ì•„ë‹ˆë©´ 
+					if (PrimeImplicants.at(i)[k] != minterms.at(j).second[k]) {		 //ë§Œì•½ì— literalì´ í•˜ë‚˜ë¼ë„ ë‹¤ë¥´ë©´ coverë¥¼ falseë¡œ ë‚´ë¦¬ê³  ì´ ìŒì— ëŒ€í•´ì„œ ë¹„êµ break
 						covers = false;
 						break;
 					}
 				}
 			}
-			if (covers)													//¸ğµç '-'¾Æ´Ñ literal¿¡ ´ëÇØ¼­ µ¿ÀÏÇÑ°æ¿ì
+			if (covers)													//ëª¨ë“  '-'ì•„ë‹Œ literalì— ëŒ€í•´ì„œ ë™ì¼í•œê²½ìš°
 			{
-				pi_to_mins_idx.at(i).push_back(j);						//pi_to_minterms[i].push_back(j)°¡ ¸ÔÈû.
-				min_to_pis_idx.at(j).push_back(i);						//min_to_pis_idx¿¡ minterms¸¸Å­ ³Ö¾îµ×À½. 				//j¹øÂ° mintermÀº i¹øÂ° pi¿¡ coverµÊÀ» ÀÇ¹ÌÇÔ
+				pi_to_mins_idx.at(i).push_back(j);						//pi_to_minterms[i].push_back(j)ê°€ ë¨¹í˜.
+				min_to_pis_idx.at(j).push_back(i);						//min_to_pis_idxì— mintermsë§Œí¼ ë„£ì–´ë’€ìŒ. 				//jë²ˆì§¸ mintermì€ ië²ˆì§¸ piì— coverë¨ì„ ì˜ë¯¸í•¨
 			}
 		}
 	}
 
 
-	//left minterm pi ´ë±â½ÃÅ°±â						
+	//left minterm pi ëŒ€ê¸°ì‹œí‚¤ê¸°						
 	{
-		//minterm ÀüºÎ¸¦ ³²Àº minterm¿¡ ´ë±â½ÃÅ´
+		//minterm ì „ë¶€ë¥¼ ë‚¨ì€ mintermì— ëŒ€ê¸°ì‹œí‚´
 		for (int i = 0; i < minterms.size(); i++) {
 			left_minterm.push_back(i);
 		}
-		//pi ÀüºÎ¸¦ ³²Àº pi¿¡ ´ë±â½ÃÅ´
+		//pi ì „ë¶€ë¥¼ ë‚¨ì€ piì— ëŒ€ê¸°ì‹œí‚´
 		for (int i = 0; i < PrimeImplicants.size(); i++) {
 			left_pi.push_back(i);
 		}
 	}
 
-	//EPI Ã£±â
+	//EPI ì°¾ê¸°
 
 	{
-		//vector<int>::iterator l_min_coverable_it; //EPI°¡ cover °¡´ÉÇÑ leftminterm ¸ñ·ÏÀÇ iterator. ±× ¸ñ·Ï ³»¿ëÀº Áö¿ï ÀÌÀ¯°¡ ¾ø´Ù. -> for¹®.
-		vector<int>::iterator covered; //¸¸¾à¼±ÅÃÇÑ pi ´ëÀÀ mintermµéÀÌ, left minterm¿¡¼­ Áö¿öÁöÁö ¾Ê°í ³²¾ÆÀÕ´Ù¸é ±×°É ´ëÀÀÇÏ±â À§ÇØ¼­.
+		//vector<int>::iterator l_min_coverable_it; //EPIê°€ cover ê°€ëŠ¥í•œ leftminterm ëª©ë¡ì˜ iterator. ê·¸ ëª©ë¡ ë‚´ìš©ì€ ì§€ìš¸ ì´ìœ ê°€ ì—†ë‹¤. -> forë¬¸.
+		vector<int>::iterator covered; //ë§Œì•½ì„ íƒí•œ pi ëŒ€ì‘ mintermë“¤ì´, left mintermì—ì„œ ì§€ì›Œì§€ì§€ ì•Šê³  ë‚¨ì•„ì‡ë‹¤ë©´ ê·¸ê±¸ ëŒ€ì‘í•˜ê¸° ìœ„í•´ì„œ.
 		l_minterm_it = left_minterm.begin();
 		while (l_minterm_it != left_minterm.end()) {
 
 			if (min_to_pis_idx.at(*l_minterm_it).size() == 1) {
 
 
-				int epi_idx = min_to_pis_idx.at(*l_minterm_it).at(0); //left minterm¿¡ ÇÏ³ª¹Û¿¡ ´ëÀÀ¾ÈµÅ´Â PI
+				int epi_idx = min_to_pis_idx.at(*l_minterm_it).at(0); //left mintermì— í•˜ë‚˜ë°–ì— ëŒ€ì‘ì•ˆë¼ëŠ” PI
 				needpi.push_back(epi_idx);
 
 
-				//EPIºÎÅÍ leftpi¿¡¼­ Áö¿î´Ù.
+				//EPIë¶€í„° leftpiì—ì„œ ì§€ìš´ë‹¤.
 				l_pi_it = find(left_pi.begin(), left_pi.end(), epi_idx);
 
-				l_pi_it = left_pi.erase(l_pi_it);  //iterator´Â Áö¿î´Ù. 
+				l_pi_it = left_pi.erase(l_pi_it);  //iteratorëŠ” ì§€ìš´ë‹¤. 
 
-				//Áö¿î EPI idx¿¡ ´ëÀÀÇÏ´Â minterm ¸ñ·Ï¿¡¼­ ÇÏ³ª¾¿ ³Ñ±â¸ç, left_minterm¿¡¼­ ºñ±³ÇÏ¿© Ã£´Â´Ù.
+				//ì§€ìš´ EPI idxì— ëŒ€ì‘í•˜ëŠ” minterm ëª©ë¡ì—ì„œ í•˜ë‚˜ì”© ë„˜ê¸°ë©°, left_mintermì—ì„œ ë¹„êµí•˜ì—¬ ì°¾ëŠ”ë‹¤.
 
 				for (int i = 0; i < pi_to_mins_idx.at(epi_idx).size(); i++) {
 					int now_min_crpd_pi = pi_to_mins_idx.at(epi_idx).at(i);
 
 
 					covered = find(left_minterm.begin(), left_minterm.end(), now_min_crpd_pi);
-					if (covered != left_minterm.end()) {	//¸¸¾à¼±ÅÃÇÑ pi ´ëÀÀ mintermµéÀÌ, left minterm¿¡¼­ Áö¿öÁöÁö ¾Ê°í ³²¾ÆÀÕ´Ù¸é //left minterm Áß EPI°¡ ´ëÀÀÇÏ´Â mintermÀ» Áö¿ö¹ö¸² 
+					if (covered != left_minterm.end()) {	//ë§Œì•½ì„ íƒí•œ pi ëŒ€ì‘ mintermë“¤ì´, left mintermì—ì„œ ì§€ì›Œì§€ì§€ ì•Šê³  ë‚¨ì•„ì‡ë‹¤ë©´ //left minterm ì¤‘ EPIê°€ ëŒ€ì‘í•˜ëŠ” mintermì„ ì§€ì›Œë²„ë¦¼ 
 
-						l_minterm_it = left_minterm.erase(covered); //l_mintermÀÌ »èÁ¦µÇ¾úÀ¸´Ï±î ÇØ´ç ÁöÁ¡ ¹İÈ¯
+						l_minterm_it = left_minterm.erase(covered); //l_mintermì´ ì‚­ì œë˜ì—ˆìœ¼ë‹ˆê¹Œ í•´ë‹¹ ì§€ì  ë°˜í™˜
 					}
 				}
 			}
@@ -208,151 +208,151 @@ int main() {
 		}
 	}
 
-	//step 4) °¡Àå ¸¹Àº mintermÀ» ³ªÅ¸³¾ ¼ö ÀÖ´Â ÈÄº¸ Ç×ºÎÅÍ ¼±ÅÃÇÏ¿©, ¸ğµç mintermÀ» ³ªÅ¸³¾ ¼ö ÀÖ´Â ÈÄº¸ Ç× Á¶ÇÕ Áß ÀûÀº Æ®·£Áö½ºÅÍ¸¦ »ç¿ëÇÏ´Â Á¶ÇÕÀ» ¸¸µå´Â ´Ü°è 
-	while (left_minterm.begin() != left_minterm.end()) {							//left minterm ¿ø¼Ò°¡ ¿ÏÀüÈ÷ »ç¶óÁú¶§±îÁö, ¾øÀ¸¸é Á¾·á
-			//left minterm Ä¿¹ö¸µ °¡´ÉÇÑ °¡Àå Å« PI°³¼ö¸¦ Ã¼Å©ÇÒ °ÍÀÌ´Ù.
+	//step 4) ê°€ì¥ ë§ì€ mintermì„ ë‚˜íƒ€ë‚¼ ìˆ˜ ìˆëŠ” í›„ë³´ í•­ë¶€í„° ì„ íƒí•˜ì—¬, ëª¨ë“  mintermì„ ë‚˜íƒ€ë‚¼ ìˆ˜ ìˆëŠ” í›„ë³´ í•­ ì¡°í•© ì¤‘ ì ì€ íŠ¸ëœì§€ìŠ¤í„°ë¥¼ ì‚¬ìš©í•˜ëŠ” ì¡°í•©ì„ ë§Œë“œëŠ” ë‹¨ê³„ 
+	while (left_minterm.begin() != left_minterm.end()) {							//left minterm ì›ì†Œê°€ ì™„ì „íˆ ì‚¬ë¼ì§ˆë•Œê¹Œì§€, ì—†ìœ¼ë©´ ì¢…ë£Œ
+		//left minterm ì»¤ë²„ë§ ê°€ëŠ¥í•œ ê°€ì¥ í° PIê°œìˆ˜ë¥¼ ì²´í¬í•  ê²ƒì´ë‹¤.
 		max_coverings = 0;
 
-		//left_mintermÀ» cover °¡´ÉÇÑ PI ¸ñ·ÏÀ» °¡Á®¿Í coveringpis¿¡ ½×±â
-		for (int i = 0; i < left_minterm.size(); i++) {								//left mintermÀÇ ¿ø¼Ò -> ´ëÀÀÇÏ´Â PIµéÀ» »Ì¾Æ³½´Ù.
+		//left_mintermì„ cover ê°€ëŠ¥í•œ PI ëª©ë¡ì„ ê°€ì ¸ì™€ coveringpisì— ìŒ“ê¸°
+		for (int i = 0; i < left_minterm.size(); i++) {								//left mintermì˜ ì›ì†Œ -> ëŒ€ì‘í•˜ëŠ” PIë“¤ì„ ë½‘ì•„ë‚¸ë‹¤.
 
 			for (int j = 0; j < min_to_pis_idx.at(left_minterm.at(i)).size(); j++) {
-				int now_pi_crpd_lmin = min_to_pis_idx.at(left_minterm.at(i)).at(j); //ÇöÀç left min¿¡ ´ëÀÀÇÏ´Â pi ¸®½ºÆ® ¿ä¼Ò j¹øÂ°. correspondedÀÇ ÁÙÀÓ¸»
-				if (find(needpi.begin(), needpi.end(), now_pi_crpd_lmin) == needpi.end()) { // PI°¡ needpi¿¡ ÀÌ¹Ì ³ÖÀº pi°¡ ¾Æ´Ï¶ó¸é
-																						
-					if (find(coveringpis.begin(), coveringpis.end(), now_pi_crpd_lmin) == coveringpis.end()) //now_pi_crpd_lmin¸¦ ÀÌ¹Ì coveringpi¿¡ ³ÖÀº°Ô ¾Æ´Ï¸é
-						coveringpis.push_back(now_pi_crpd_lmin); //coveringpi¿¡ ³Ö¾îÁÖ±â
+				int now_pi_crpd_lmin = min_to_pis_idx.at(left_minterm.at(i)).at(j); //í˜„ì¬ left minì— ëŒ€ì‘í•˜ëŠ” pi ë¦¬ìŠ¤íŠ¸ ìš”ì†Œ jë²ˆì§¸. correspondedì˜ ì¤„ì„ë§
+				if (find(needpi.begin(), needpi.end(), now_pi_crpd_lmin) == needpi.end()) { // PIê°€ needpiì— ì´ë¯¸ ë„£ì€ piê°€ ì•„ë‹ˆë¼ë©´
+
+					if (find(coveringpis.begin(), coveringpis.end(), now_pi_crpd_lmin) == coveringpis.end()) //now_pi_crpd_lminë¥¼ ì´ë¯¸ coveringpiì— ë„£ì€ê²Œ ì•„ë‹ˆë©´
+						coveringpis.push_back(now_pi_crpd_lmin); //coveringpiì— ë„£ì–´ì£¼ê¸°
 				}
 			}
 		}
 
 
-		//coveringpisµéÀ» ÇÑ°³¾¿ »ìÆìº»´Ù. cover °¡´ÉÇÑ left mintermÀ» coverings¿¡ ³Ö¾î°¡¸é¼­ max_coveringÀÎ PI max_covering_PI ±¸ÇÏ±â
-		for (int i = 0; i < coveringpis.size(); i++) {												// left minterms ¼ø¼­´ë·Î ºÒ·¯¿À±â
+		//coveringpisë“¤ì„ í•œê°œì”© ì‚´í´ë³¸ë‹¤. cover ê°€ëŠ¥í•œ left mintermì„ coveringsì— ë„£ì–´ê°€ë©´ì„œ max_coveringì¸ PI max_covering_PI êµ¬í•˜ê¸°
+		for (int i = 0; i < coveringpis.size(); i++) {												// left minterms ìˆœì„œëŒ€ë¡œ ë¶ˆëŸ¬ì˜¤ê¸°
 			int now_cvpi = coveringpis.at(i);
-			vector<int> coverings;												//°¢ PI°¡ cover °¡´ÉÇÑ left minterms¸ñ·Ï
-			for (int j = 0; j < left_minterm.size(); j++) {											//coveringpis ¼ø¼­´ë·ÎºÒ·¯¿À±â
-				vector<int>::iterator findlmin_crpd_pi = find(pi_to_mins_idx.at(now_cvpi).begin(), pi_to_mins_idx.at(now_cvpi).end(), left_minterm.at(j)); //coveringpis i¹øÂ° ¿ø¼Ò pi -> pi_to_mins_idx ´ëÀÀ mins, ¿¡¼­ left_minterm.at(j)¸¦ Ã£´Â´Ù. ...°¢ÀÚÀÇ size´Â ÀÌ¹Ì ¼öÀÎµ¥? ¾Èµ¹¾Æ°¥¸®°¡ ¾øÀİ¾Æ
+			vector<int> coverings;												//ê° PIê°€ cover ê°€ëŠ¥í•œ left mintermsëª©ë¡
+			for (int j = 0; j < left_minterm.size(); j++) {											//coveringpis ìˆœì„œëŒ€ë¡œë¶ˆëŸ¬ì˜¤ê¸°
+				vector<int>::iterator findlmin_crpd_pi = find(pi_to_mins_idx.at(now_cvpi).begin(), pi_to_mins_idx.at(now_cvpi).end(), left_minterm.at(j)); //coveringpis ië²ˆì§¸ ì›ì†Œ pi -> pi_to_mins_idx ëŒ€ì‘ mins, ì—ì„œ left_minterm.at(j)ë¥¼ ì°¾ëŠ”ë‹¤. ...ê°ìì˜ sizeëŠ” ì´ë¯¸ ìˆ˜ì¸ë°? ì•ˆëŒì•„ê°ˆë¦¬ê°€ ì—†ì–ì•„
 
-				if (findlmin_crpd_pi != pi_to_mins_idx.at(now_cvpi).end()) { //left mintermÀ» ÇöÀç pi´ëÀÀmins¿¡¼­ Ã£´Â °á°ú°¡ Á¸Àç¸¸ÇÏ¸é
-					coverings.push_back(left_minterm.at(j)); //coverings¿¡ left minterm ³Ö±â
+				if (findlmin_crpd_pi != pi_to_mins_idx.at(now_cvpi).end()) { //left mintermì„ í˜„ì¬ piëŒ€ì‘minsì—ì„œ ì°¾ëŠ” ê²°ê³¼ê°€ ì¡´ì¬ë§Œí•˜ë©´
+					coverings.push_back(left_minterm.at(j)); //coveringsì— left minterm ë„£ê¸°
 				}
 			}
 			//cout<<endl; //ForDebug
-			if (coverings.size() > max_coverings) {				//ÇÑ°³ÀÇ covering pi¿¡ ´ëÇØ¼­, covering°¡´ÉÇÑ left mintermÀÇ ¼ö°¡ ±â·ÏÇØµ×´ø max left coveringsº¸´Ù Å©´Ù¸é
-				max_coverings = coverings.size();				//±×ÃÖ´ë¸¦  coverings size·Î °»½ÅÇÏ°í
-				max_covering_PI = now_cvpi;					//ÃÖÁ¾ ¼±ÅÃÇÏ´Â PI¸¦ i¹øÂ° covevering pi·Î °»½Å
+			if (coverings.size() > max_coverings) {				//í•œê°œì˜ covering piì— ëŒ€í•´ì„œ, coveringê°€ëŠ¥í•œ left mintermì˜ ìˆ˜ê°€ ê¸°ë¡í•´ë’€ë˜ max left coveringsë³´ë‹¤ í¬ë‹¤ë©´
+				max_coverings = coverings.size();				//ê·¸ìµœëŒ€ë¥¼  coverings sizeë¡œ ê°±ì‹ í•˜ê³ 
+				max_covering_PI = now_cvpi;					//ìµœì¢… ì„ íƒí•˜ëŠ” PIë¥¼ ië²ˆì§¸ covevering pië¡œ ê°±ì‹ 
 			}
 			vector<int>().swap(coverings);
-		}														//ÃÖÁ¾ÀûÀ¸·Î °¡Àå Å« covering PI°¡ max_covering_PI
+		}														//ìµœì¢…ì ìœ¼ë¡œ ê°€ì¥ í° covering PIê°€ max_covering_PI
 
-		//°¡Àå Å« covering PI¸¦ needpi¿¡ ³Ö°í, ±×¿¡ ´ëÀÀÇÏ´Â left minterm ±¸ÇØ¼­ »èÁ¦
-		needpi.push_back(max_covering_PI);					
-		for (int i = 0; i < max_coverings; i++) {					//max_coverings = max_covering_PI°¡ ÇÏ´Â left minterm °³¼ö
-			auto p = find(left_minterm.begin(), left_minterm.end(), pi_to_mins_idx.at(max_covering_PI).at(i));		//max_covering_PI°¡ cover °¡´ÉÇÑ mintermÀ» Â÷·Ê·Î left minterm¿¡¼­ Ã£¾Æ¼­ Áö¿ö¹ö¸²
-			left_minterm.erase(p);							
+		//ê°€ì¥ í° covering PIë¥¼ needpiì— ë„£ê³ , ê·¸ì— ëŒ€ì‘í•˜ëŠ” left minterm êµ¬í•´ì„œ ì‚­ì œ
+		needpi.push_back(max_covering_PI);
+		for (int i = 0; i < max_coverings; i++) {					//max_coverings = max_covering_PIê°€ í•˜ëŠ” left minterm ê°œìˆ˜
+			auto p = find(left_minterm.begin(), left_minterm.end(), pi_to_mins_idx.at(max_covering_PI).at(i));		//max_covering_PIê°€ cover ê°€ëŠ¥í•œ mintermì„ ì°¨ë¡€ë¡œ left mintermì—ì„œ ì°¾ì•„ì„œ ì§€ì›Œë²„ë¦¼
+			left_minterm.erase(p);
 		}
-		//ÃÖÁ¾ÀûÀ¸·Î ÇöÀçÀÇ left minterm¸¶´Ù ÃÖ´ë coveringsÀÇ PI¿Í covering ÇÏ´Â mintermÀ» »Ì¾Æ³»¸é¼­ left_mintermÀº 0ÀÌµÊ
+		//ìµœì¢…ì ìœ¼ë¡œ í˜„ì¬ì˜ left mintermë§ˆë‹¤ ìµœëŒ€ coveringsì˜ PIì™€ covering í•˜ëŠ” mintermì„ ë½‘ì•„ë‚´ë©´ì„œ left_mintermì€ 0ì´ë¨
 	}
 
 
 	vector<int>().swap(left_minterm);
 	vector<int>().swap(left_pi);
-	vector<vector<int>>().swap(pi_to_mins_idx);									//ÀÌÁ¦ ¾È¾¸, ÇÒ´ç ÇØÁ¦
+	vector<vector<int>>().swap(pi_to_mins_idx);									//ì´ì œ ì•ˆì”€, í• ë‹¹ í•´ì œ
 	vector<vector<int>>().swap(min_to_pis_idx);
 	vector<int>().swap(coveringpis);
 
 	int transistors;
-	int bit;											//»ç¿ëÇÏ´Â ÃÑ transistor °³¼ö, ¿¬°á bit °³¼ö
-	int AND = 0;														//AND °ÔÀÌÆ®¿¡ »ç¿ëÇÏ´Â transistor °³¼ö
+	int bit;											//ì‚¬ìš©í•˜ëŠ” ì´ transistor ê°œìˆ˜, ì—°ê²° bit ê°œìˆ˜
+	int AND = 0;														//AND ê²Œì´íŠ¸ì— ì‚¬ìš©í•˜ëŠ” transistor ê°œìˆ˜
 
 	ofstream fout("result.txt");
 
 
-	//step 5) ÃÖÁ¾ÀûÀ¸·Î °í¸¥ PI Á¶ÇÕ°ú Á¶ÇÕÀ» SOP formÀ¸·Î ³ªÅ¸³»±â À§ÇÑ transistor °³¼ö Ãâ·Â ´Ü°è
-	for (int i = 0; i < needpi.size(); i++) {							//needpi ÀüÃ¼¿¡ ´ëÇØ
+	//step 5) ìµœì¢…ì ìœ¼ë¡œ ê³ ë¥¸ PI ì¡°í•©ê³¼ ì¡°í•©ì„ SOP formìœ¼ë¡œ ë‚˜íƒ€ë‚´ê¸° ìœ„í•œ transistor ê°œìˆ˜ ì¶œë ¥ ë‹¨ê³„
+	for (int i = 0; i < needpi.size(); i++) {							//needpi ì „ì²´ì— ëŒ€í•´
 		fout << PrimeImplicants.at(needpi.at(i)) << endl;
 		bit = 0;
-		for (int j = 0; j < MINTERM_LENGTH; j++) {								//¿ì¸®°¡ Ã³¸®ÇÒ PI ±æÀÌ °¢±ÛÀÚ¸¶´Ù
-			if (PrimeImplicants.at(needpi.at(i))[j] != '-')			//needpi Ã¹¹øÂ° idxºÎÅÍ ´ëÀÀ½ÃÅ² PIÀÇ, j¹øÂ° ±ÛÀÚ°¡ -ÀÌ ¾Æ´Ï¸é
-				bit++;													//ÇØ´ç PIÀÇ bit ¼ö Ãß°¡
+		for (int j = 0; j < MINTERM_LENGTH; j++) {								//ìš°ë¦¬ê°€ ì²˜ë¦¬í•  PI ê¸¸ì´ ê°ê¸€ìë§ˆë‹¤
+			if (PrimeImplicants.at(needpi.at(i))[j] != '-')			//needpi ì²«ë²ˆì§¸ idxë¶€í„° ëŒ€ì‘ì‹œí‚¨ PIì˜, jë²ˆì§¸ ê¸€ìê°€ -ì´ ì•„ë‹ˆë©´
+				bit++;													//í•´ë‹¹ PIì˜ bit ìˆ˜ ì¶”ê°€
 		}
-		AND = AND + 2 * bit + 2;										//ÀÌ PI¸¦ AND ±¸Çö ½Ã ÇÊ¿äÇÑ ºñÆ® ¼ö 
+		AND = AND + 2 * bit + 2;										//ì´ PIë¥¼ AND êµ¬í˜„ ì‹œ í•„ìš”í•œ ë¹„íŠ¸ ìˆ˜ 
 	}
 	fout << endl;
-	transistors = 2 * static_cast<unsigned long long>(MINTERM_LENGTH) + AND + (2 * needpi.size() + 2);		//ÃÑ Æ®·£Áö½ºÅÍ °³¼ö
+	transistors = 2 * static_cast<unsigned long long>(MINTERM_LENGTH) + AND + (2 * needpi.size() + 2);		//ì´ íŠ¸ëœì§€ìŠ¤í„° ê°œìˆ˜
 	fout << "Cost (# of transistors):" << transistors;
-	
+
 	fout.close();
 	return 0;
 }
 
 pair<vector<string>, bool> reduce(vector<string> before_reducing, vector<string>* PI_GetStarred)
 {
-	vector<string> reduced_minterms_now; //ÀÌ¹ø ´Ü°èÀÇ reduced minterms
-	bool reducing_occured; //ÀÌ¹ø ´Ü°è¿¡¼­.¾î¶°ÇÑ minterm ½Öµµ reduceµÇ¾úÀ»½Ã, ºñ±³ÇÏ¸é¼­ true·Î ¹Ù²Ü°Í. ÀÌÈÄ¿¡ before_reducing°ú pair·Î ´ã°Ü ¹İÈ¯
-	int pos_reducing; //bitÂ÷ÀÌ À§Ä¡ ±â·Ï
-	int count_reducing = 0; //bitÂ÷ÀÌ °³¼ö ±â·Ï	
-	bool is_minterm_reducable; //°¢ minterm¿¡ ´ëÇØ¼­, ´Ù¸¥ minterm°ú reduce µÇ¾ú´Ù¸é. ºñ±³ ³¡³­ mintermÀº Áö¿ö¹ö¸®±â À§ÇØ¼­
+	vector<string> reduced_minterms_now; //ì´ë²ˆ ë‹¨ê³„ì˜ reduced minterms
+	bool reducing_occured; //ì´ë²ˆ ë‹¨ê³„ì—ì„œ.ì–´ë– í•œ minterm ìŒë„ reduceë˜ì—ˆì„ì‹œ, ë¹„êµí•˜ë©´ì„œ trueë¡œ ë°”ê¿€ê²ƒ. ì´í›„ì— before_reducingê³¼ pairë¡œ ë‹´ê²¨ ë°˜í™˜
+	int pos_reducing; //bitì°¨ì´ ìœ„ì¹˜ ê¸°ë¡
+	int count_reducing = 0; //bitì°¨ì´ ê°œìˆ˜ ê¸°ë¡	
+	bool is_minterm_reducable; //ê° mintermì— ëŒ€í•´ì„œ, ë‹¤ë¥¸ mintermê³¼ reduce ë˜ì—ˆë‹¤ë©´. ë¹„êµ ëë‚œ mintermì€ ì§€ì›Œë²„ë¦¬ê¸° ìœ„í•´ì„œ
 
 	vector<string> is_starred;
 	vector<string>::iterator bef_red_it_outer;
 	vector<string>::iterator bef_red_it_inner;
 
-	//½Ö¸¶´Ù ºñ±³ÇÏ¸ç reduce ´Ü°è
+	//ìŒë§ˆë‹¤ ë¹„êµí•˜ë©° reduce ë‹¨ê³„
 	reducing_occured = false;
 	bef_red_it_outer = before_reducing.begin();
 	while (bef_red_it_outer != before_reducing.end())
 	{
-		is_minterm_reducable = false; //°¢ minterm¿¡ ´ëÇØ¼­ ±âº»ÀûÀ¸·Î´Â mintermÀÌ reducableÇÏÁö ¾Ê´Ù°í ÃÊ±âÈ­ÇØ¾ß‰Â´Ù. //°³¹ßnote: ÀØÀ¸¸é¾È‰Î.
+		is_minterm_reducable = false; //ê° mintermì— ëŒ€í•´ì„œ ê¸°ë³¸ì ìœ¼ë¡œëŠ” mintermì´ reducableí•˜ì§€ ì•Šë‹¤ê³  ì´ˆê¸°í™”í•´ì•¼í•¨.
 
 		bef_red_it_inner = before_reducing.begin();
 		while (bef_red_it_inner != before_reducing.end())
 		{
-			if (bef_red_it_inner == bef_red_it_outer) { //ÀÚ±â ÀÚ½Å°úÀÇ ºñ±³ skip
+			if (bef_red_it_inner == bef_red_it_outer) { //ìê¸° ìì‹ ê³¼ì˜ ë¹„êµ skip
 				bef_red_it_inner++;
 				continue;
 			}
 			else {
 
-				count_reducing = 0;//°¢ minterm½Ö¸¶´Ù Ã¼Å©ÇÒ pair°³¼ö 0À¸·Î ÃÊ±âÈ­. 
-				//½ÖÀÇ ÇÑ bit ¾¿ ºñ±³ÇÏ¸ç µÎ mintermÀÇ bit ´Ù¸§ Ã¼Å©
+				count_reducing = 0;//ê° mintermìŒë§ˆë‹¤ ì²´í¬í•  pairê°œìˆ˜ 0ìœ¼ë¡œ ì´ˆê¸°í™”. 
+				//ìŒì˜ í•œ bit ì”© ë¹„êµí•˜ë©° ë‘ mintermì˜ bit ë‹¤ë¦„ ì²´í¬
 				for (int k = 0; k < MINTERM_LENGTH; k++) {
-					if ((*bef_red_it_outer)[k] != (*bef_red_it_inner)[k])  //°¢ bitÃ¼Å©ÇÏ¸é¼­ bit°¡ ´Ù¸£¸é //°³¹ß note: ÀÇ¹Ì»ó vector´Â at, stringÀº []Ã³¸®
-					{											
-						if ((*bef_red_it_outer)[k] == '-' || (*bef_red_it_inner)[k] == '-') { //¼­·Î ´Ù¸¥ µÎ bit Áß¿¡ '-'bit°¡ ´Ù¸£¸é ±×°Ç Ã³¸® ¾ÈÇÏ´Ï±î( °°Àº°÷¿¡ ÇÏ³ª´Â 1ÀÖ°í ÇÏ³ª´À '-'ÀÖÀ¸¸é ¹«ÀÇ¹ÌÇÔ)
+					if ((*bef_red_it_outer)[k] != (*bef_red_it_inner)[k])  //ê° bitì²´í¬í•˜ë©´ì„œ bitê°€ ë‹¤ë¥´ë©´ //ê°œë°œ note: ì˜ë¯¸ìƒ vectorëŠ” at, stringì€ []ì²˜ë¦¬
+					{
+						if ((*bef_red_it_outer)[k] == '-' || (*bef_red_it_inner)[k] == '-') { //ì„œë¡œ ë‹¤ë¥¸ ë‘ bit ì¤‘ì— '-'bitê°€ ë‹¤ë¥´ë©´ ê·¸ê±´ ì²˜ë¦¬ ì•ˆí•˜ë‹ˆê¹Œ( ê°™ì€ê³³ì— í•˜ë‚˜ëŠ” 1ìˆê³  í•˜ë‚˜ëŠ '-'ìˆìœ¼ë©´ ë¬´ì˜ë¯¸í•¨)
 							count_reducing = 0;
-							break; //µÎ°³ÀÇ bit°¡ ´Ù¸¥µ¥, ÇÏ³ª¶óµµ '-'°¡ ÀÖ´Ù¸é ºñ±³ ÀÇ¹Ì ¾øÀ¸¹Ç·Î break
+							break; //ë‘ê°œì˜ bitê°€ ë‹¤ë¥¸ë°, í•˜ë‚˜ë¼ë„ '-'ê°€ ìˆë‹¤ë©´ ë¹„êµ ì˜ë¯¸ ì—†ìœ¼ë¯€ë¡œ break
 						}
-						else //ºñÆ®´Â ´Ù¸¥µ¥ µÎ°³ ¸ğµÎ '-'°¡ ¾Æ´Ï¸é
+						else //ë¹„íŠ¸ëŠ” ë‹¤ë¥¸ë° ë‘ê°œ ëª¨ë‘ '-'ê°€ ì•„ë‹ˆë©´
 						{
-							pos_reducing = k; //bitÂ÷ÀÌÁöÁ¡ 
-							count_reducing++;	//bitÂ÷ÀÌ °³¼ö						
+							pos_reducing = k; //bitì°¨ì´ì§€ì  
+							count_reducing++;	//bitì°¨ì´ ê°œìˆ˜						
 						}
 					}
 					if (count_reducing > 1)
 						break;
-					//¿©±â¼­ ´Ù¸£¸é breakÇØÁØ´Ù.
+					//ì—¬ê¸°ì„œ ë‹¤ë¥´ë©´ breakí•´ì¤€ë‹¤.
 				}
-				//for(k)°¡ ³¡³ª°í(ÀÌ minterm ½Ö¿¡ ´ëÇØ,hamming dist = 1 ÀÓÀ» È®ÀÎ), ÇØ´ç ÁöÁ¡¸¸ '-'Ä¡È¯ÇØ¼­ reduced_minterms_now¿¡ Ãß°¡.
-				//ÀüÃ¼½Ö°Ë»ç¸¦ ÇÏ´Ï±î, ÀÚ±â ÀÚ½ÅÀ» Æ÷ÇÔÇÑ ÀûÀÌ ÀÖ´ÂÁö¸¦ »ı°¢ÇØ¾ß‰Â´Ù.
+				//for(k)ê°€ ëë‚˜ê³ (ì´ minterm ìŒì— ëŒ€í•´,hamming dist = 1 ì„ì„ í™•ì¸), í•´ë‹¹ ì§€ì ë§Œ '-'ì¹˜í™˜í•´ì„œ reduced_minterms_nowì— ì¶”ê°€.
+				//ì „ì²´ ìŒ ê²€ì‚¬ë¥¼ í•˜ë‹ˆê¹Œ, ìê¸° ìì‹ ì„ í¬í•¨í•œ ì ì´ ìˆëŠ”ì§€ë¥¼ ìƒê°í•´ì•¼Â‰ í•¨.
 
-				if (count_reducing == 1) //hamming dist = 1ÀÌ¶ó´Â ÀÇ¹Ì										
+				if (count_reducing == 1) //hamming dist = 1ì´ë¼ëŠ” ì˜ë¯¸										
 				{
 
-					is_minterm_reducable = true;  //ÀÌÈÄ¿¡ before_reducing¿¡¼­, Fully Checked µÈ ÀÌ minterm¿¡ ´ëÇØ¼­, ¿©·¯ doncare·Î ¹­ÀÏ ¼ö ÀÖÀ¸¹Ç·Î Áö¿ö¹ö¸°´Ù.
-					string newMinterm = *bef_red_it_outer;  //±×³É newminterm ¿¡ º¹»ç¸¦ ÇÏ°í
-					newMinterm[pos_reducing] = '-'; //Â÷ÀÌÁöÁ¡ÀÇ ¿ø¼Ò¸¦ '-'·Î ¹Ù²ãµĞ´Ù. 
+					is_minterm_reducable = true;  //ì´í›„ì— before_reducingì—ì„œ, Fully Checked ëœ ì´ mintermì— ëŒ€í•´ì„œ, ì—¬ëŸ¬ doncareë¡œ ë¬¶ì¼ ìˆ˜ ìˆìœ¼ë¯€ë¡œ ì§€ì›Œë²„ë¦°ë‹¤.
+					string newMinterm = *bef_red_it_outer;  //ê·¸ëƒ¥ newminterm ì— ë³µì‚¬ë¥¼ í•˜ê³ 
+					newMinterm[pos_reducing] = '-'; //ì°¨ì´ì§€ì ì˜ ì›ì†Œë¥¼ '-'ë¡œ ë°”ê¿”ë‘”ë‹¤. 
 
 					if (find(reduced_minterms_now.begin(), reduced_minterms_now.end(), newMinterm) == reduced_minterms_now.end())
 					{
-						reduced_minterms_now.push_back(newMinterm); //reduceµÈ°É Ãß°¡ÇÑ´Ù.
+						reduced_minterms_now.push_back(newMinterm); //reduceëœê±¸ ì¶”ê°€í•œë‹¤.
 					}
 				}
 				bef_red_it_inner++;
 			}
 		}
-//for(j)°¡ ³¡³ª°í(ÀÌ minterm¿¡ ´ëÇØ¼­ ³ª¸ÓÁö minterm°ú ¹­ÀÌ´ÂÁö¸¦ È®ÀÎÇßÀ½), 
+		//for(j)ê°€ ëë‚˜ê³ (ì´ mintermì— ëŒ€í•´ì„œ ë‚˜ë¨¸ì§€ mintermê³¼ ë¬¶ì´ëŠ”ì§€ë¥¼ í™•ì¸í–ˆìŒ), 
 		if (is_minterm_reducable == true) {
 			reducing_occured = true;
 		}
@@ -362,18 +362,18 @@ pair<vector<string>, bool> reduce(vector<string> before_reducing, vector<string>
 		bef_red_it_outer++;
 	}
 
-	for (int i = 0; i < is_starred.size(); i++) 			
+	for (int i = 0; i < is_starred.size(); i++)
 	{
-		PI_GetStarred->push_back(is_starred[i]); 
+		PI_GetStarred->push_back(is_starred[i]);
 	}
 
 	pair<vector<string>, bool> p;
-	if (reducing_occured == true)												//¼Ò°Å ¼º°ø, »õ·Î »ı¼ºµÈ º¤ÅÍ Àü´Ş
+	if (reducing_occured == true)												//ì†Œê±° ì„±ê³µ, ìƒˆë¡œ ìƒì„±ëœ ë²¡í„° ì „ë‹¬
 	{
-		vector<string>().swap(before_reducing);									//ÀÌÁ¦ ¾È¾¸, ÇÒ´ç ÇØÁ¦
+		vector<string>().swap(before_reducing);									//ì´ì œ ì•ˆì”€, í• ë‹¹ í•´ì œ
 		p = make_pair(reduced_minterms_now, reducing_occured);
 	}
-	else																		//¼Ò°Å ½ÇÆĞ, ±âÁ¸ º¤ÅÍ Àü´Ş
+	else																		//ì†Œê±° ì‹¤íŒ¨, ê¸°ì¡´ ë²¡í„° ì „ë‹¬
 	{
 		p = make_pair(before_reducing, reducing_occured);
 		//	cout << "Reduce End" << endl; ForDebug
