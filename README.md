@@ -63,7 +63,7 @@ m 0101
 Cost (# of transistors): <정수>
 
 ---
-## ▶️ Demo Build & Run
+## Demo Build & Run
 
 ```bash
 # Compile
@@ -77,7 +77,7 @@ cat result.txt
 ```
 
 ---
-✅ 검증 사례 (예시)
+## 검증 사례 (예시)
 
 입력 (input_minterm.txt에 추가)
 ```bash
