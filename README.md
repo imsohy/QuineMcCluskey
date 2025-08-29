@@ -71,7 +71,7 @@ Cost (# of transistors): <정수>
 
 ```bash
 # Compile
-g++ QuineMcklusky.cpp -O2 -std=c++17 -o quine
+g++ QuineMcCluskey.cpp -std=c++17 -o quine
 
 # Run (input_minterm.txt와 동일 디렉터리)
 ./quine
