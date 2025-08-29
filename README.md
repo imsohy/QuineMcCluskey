@@ -67,7 +67,8 @@ m 0101
 Cost (# of transistors): <정수>
 
 ---
-## Demo Build & Run
+## Demo Build & Run 
+### Linux
 
 ```bash
 # Compile
