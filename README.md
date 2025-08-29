@@ -68,7 +68,7 @@ m 0101
 
 <선택된 PI 한 줄씩>
 
-Cost (# of transistors): <정수>
+Cost (# of transistors):<정수>
 
 ---
 ## Demo Build & Run 
@@ -109,6 +109,6 @@ d 1111
 1-01
 1010
 
-Cost (# of transistors): 40
+Cost (# of transistors):40
 ```
 
