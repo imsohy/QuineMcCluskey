@@ -284,6 +284,8 @@ int main() {
 	fout << "Cost (# of transistors):" << transistors;
 
 	fout.close();
+
+	cout << "Result saved in result.txt" << endl;
 	return 0;
 }
 
