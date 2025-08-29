@@ -4,6 +4,7 @@
 ## Authors
 
 김동욱 · 최경정 · 김민경 · 장현웅
+
 ---
 [![Demo Video](https://img.youtube.com/vi/jBF4zhkyvls/0.jpg)](https://youtu.be/jBF4zhkyvls)  
 ---
