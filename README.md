@@ -44,8 +44,11 @@ F1(A,B,C)=AB+A′B+AB′
 ```
 
 - 입력 파일: `input_minterm.txt`
+
 <비트길이>
+
 <m: minterm|d:don't care value> <2진수>
+
 ...
 
 예)
@@ -60,6 +63,7 @@ m 0101
 - 출력 파일: `result.txt`
 
 <선택된 PI 한 줄씩>
+
 Cost (# of transistors): <정수>
 
 ---
