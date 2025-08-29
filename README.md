@@ -1,6 +1,7 @@
 # Quine-McCluskey Algorithm Implementation  
 
 2022-2 광운대학교 컴퓨터정보공학부 디지털논리회로1 중간과제
+
 ---
 ## Authors
 
